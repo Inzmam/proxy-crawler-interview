@@ -64,3 +64,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'sidekiq'
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'whenever', require: false
+gem 'bcrypt', '~> 3.1.7'
+gem 'jwt'
+gem 'simple_command'

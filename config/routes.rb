@@ -8,5 +8,6 @@ Rails.application.routes.draw do
   end
 
   resources :products
+  post 'authenticate', to: 'authentication#authenticate'
 
 end
