@@ -1,24 +1,29 @@
-# README
+# Proxy Crawler
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+- Run the following commands after cloning application locally:
 
-Things you may want to cover:
+  - `rails db:create`
+  - `rails db:migrate`
+  - `rails db:seed`
+  - `sidekiq`
+  - `redis-server`
+  - `bundle install`
 
-* Ruby version
+- Please also create `.env.development` file and copy env variables from `.env.development.copy` and add your own values against each variable
 
-* System dependencies
+- After that run `rails server`
 
-* Configuration
+You can add new Amazon URLs for crawling by updating seeds.rb file.
 
-* Database creation
+For Authentication, the api link is:
 
-* Database initialization
+`http://localhost:3000/authenticate`
 
-* How to run the test suite
+```sh
+{
+	"email": "admin@email.com",
+	"password": "admin1234"
+}
+```
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+For fetching products, please include the Auth Token received in the previous API.
