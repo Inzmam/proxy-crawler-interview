@@ -4,24 +4,16 @@ require 'app_constants'
 
 class Crawler
 
-  def initialize(url)
+  def initialize(url, user_agent)
     @url = url
+    @user_agent = user_agent
   end
 
   def crawl
-    user_agent = get_user_agent
     uri = URI(AppConstants::PROXY_CRAWL_URL)
-    uri.query = URI.encode_www_form({ token: ENV["JS_TOKEN"], url: @url, 'User-Agent': user_agent })
+    uri.query = URI.encode_www_form({ token: ENV["JS_TOKEN"], url: @url, 'User-Agent': @user_agent })
     response = Net::HTTP.get_response(uri)
     read_data(response)
-  end
-
-  def get_user_agent
-    uri = URI("#{AppConstants::PROXY_CRAWL_URL}/user_agents")
-    uri.query = URI.encode_www_form({ token: ENV["JS_TOKEN"] })
-    response = Net::HTTP.get_response(uri)
-    user_agent = JSON.parse(response.body)["agents"][0]
-    user_agent
   end
 
   def read_data(response)
@@ -46,11 +38,11 @@ class Crawler
       end
 
       basic_details = single_row.css('div.s-title-instructions-style > div.a-row.a-size-base.a-color-secondary span')
-      esbr_rating = basic_details[0].text.split("ESRB Rating: ")[1]
-      release_date = basic_details[4].text
-      brand_name = basic_details[8].text.split("by ")[1]
+      esbr_rating = basic_details[0]&.text&.split("ESRB Rating: ")[1]
+      release_date = basic_details[4]&.text
+      brand_name = basic_details[8].text&.split("by ")[1]
       prod_url = single_row.css('div.s-price-instructions-style > div > a')[0]['href']
-      price = single_row.css('div.s-price-instructions-style .a-offscreen').text
+      price = single_row.css('div.s-price-instructions-style .a-offscreen')&.text
 
       previousProduct = Product.where(name: heading)
 

@@ -15,3 +15,5 @@ AmazonPage.create([
   { url: "https://www.amazon.com/s?k=pokemon+legends+arceus+nintendo+switch&crid=2AU3QKHGPCY5J&sprefix=pokemon%2Caps%2C320&ref=nb_sb_ss_ts-doa-p_1_7" },
   { url: "https://www.amazon.com/s?k=pokemon+legends+arceus+nintendo+switch&crid=2AU3QKHGPCY5J&sprefix=pokemon%2Caps%2C320&ref=nb_sb_ss_ts-doa-p_1_7" }
 ])
+
+User.create!(email: 'admin@email.com' , password: 'admin1234' , password_confirmation: 'admin1234')
